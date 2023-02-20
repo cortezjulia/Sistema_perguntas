@@ -18,34 +18,36 @@ perguntas = [
         'Resposta': '5',
     },
 ]
-    
-
-
-
-
-#serve para imprimir indice e conteudo
-#for chave,valor in perguntas.items():
- #   print(chave,valor)
+     
+def printa_opcoes():
+    for pergunta in perguntas:
+        print(pergunta['Pergunta'])
+        indice=1
+        for opcao in pergunta['Opções']:
+            print(f'{indice}) {opcao}')
+            if opcao==pergunta['Resposta']:
+                indice_resp=indice
+            indice+=1
+        resposta_usuario=input('Resposta: ')
+        verificacao=seguranca(resposta_usuario)
+        if verificacao==0:
+            if resposta_usuario!=str(indice_resp):
+                print('Errou','\U0001F614')
+            else:
+                print('Acertou','\U0001F601')
+        
+def seguranca(entrada):
+        flag=0
+        if entrada.isdigit()==False:
+            print('Digite apenas números!')
+            flag=1
+        
+            
+        return flag 
+        
 
    
-
-
+       
+while True:
  
-def printa_opcoes():
-    indice=1
-    for valor in perguntas['Opções']:
-        print(f'{indice}) {valor}')
-        indice+=1
-
-def avalia_resposta():
-    resposta_usuario=input('Resposta: ')
-    
-    if resposta_usuario!=perguntas['Resposta']:
-        print('Errou','\U0001F614')
-    else:
-        print('Acertou','\U0001F601')
-    
-for pergunta in perguntas:
-    print(pergunta['Pergunta'])
     printa_opcoes()
-    avalia_resposta()
