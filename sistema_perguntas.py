@@ -1,5 +1,7 @@
 # Exercício - sistema de perguntas e respostas
 import emoji
+import os
+errou=0
 
 perguntas = [
     {
@@ -28,14 +30,18 @@ def printa_opcoes():
             if opcao==pergunta['Resposta']:
                 indice_resp=indice
             indice+=1
-        resposta_usuario=input('Resposta: ')
-        verificacao=seguranca(resposta_usuario)
-        if verificacao==0:
-            if resposta_usuario!=str(indice_resp):
-                print('Errou','\U0001F614')
-            else:
-                print('Acertou','\U0001F601')
-        
+        while True:
+            resposta_usuario=input('Resposta: ')
+            verificacao=seguranca(resposta_usuario)
+            if verificacao==0:
+                break
+        if resposta_usuario!=str(indice_resp):
+            print('Errou','\U0001F614')
+            print()
+        else:
+            print('Acertou','\U0001F601')
+            print()
+            
 def seguranca(entrada):
         flag=0
         if entrada.isdigit()==False:
@@ -48,6 +54,19 @@ def seguranca(entrada):
 
    
        
+
 while True:
- 
-    printa_opcoes()
+    if errou==0:
+        printa_opcoes()
+
+    continuar=input('Deseja reiniciar as perguntas? Digite [s]im ou [n]ao: ')
+    
+    if continuar.lower().startswith('n'):
+        print('Você saiu!')
+        break
+    elif continuar.lower().startswith('s'):
+        print('Vamos refazer as perguntas!')
+        os.system('cls')
+    else:
+        print('Digite [s] ou [n]!')
+        errou=1
